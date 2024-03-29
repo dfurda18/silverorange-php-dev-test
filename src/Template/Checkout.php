@@ -36,6 +36,12 @@ class Checkout extends Layout
                                 </tbody>
                             </table>
                         </div>
+                        <div class="frame__contents frame_flex_row">
+                            <input type="checkbox" class="form-field__checkbox" />
+                            <div>
+                                With our “Rise & Shine” beta program, you get early access to new features, but they may not always work perfectly. You can change your beta preference at any time after you join.
+                            </div>
+                        </div>
                     </div>
                     <div class="frame">
                         <h2 class="frame__title">Account Details</h2>
