@@ -102,6 +102,15 @@ main {
   height: auto;
 }
 
+.form-submit {
+  display: flex;
+  justify-content: center;
+}
+
+.form-submit input {
+  padding: .5rem 1rem;
+}
+
 .entry,
 .textarea {
   padding: 0.5rem;
