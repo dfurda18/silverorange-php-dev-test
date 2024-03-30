@@ -13,4 +13,6 @@ class Context
     public string $author_full_name = '';
 
     public string $modified_at = '';
+
+    public $model = null;
 }

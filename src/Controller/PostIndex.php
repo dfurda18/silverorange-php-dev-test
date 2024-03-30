@@ -4,6 +4,7 @@ namespace silverorange\DevTest\Controller;
 
 use silverorange\DevTest\Context;
 use silverorange\DevTest\Template;
+use silverorange\DevTest\Model;
 
 class PostIndex extends Controller
 {
@@ -13,6 +14,7 @@ class PostIndex extends Controller
     {
         $context = new Context();
         $context->title = 'Posts';
+        $context->model = $this->posts;
         return $context;
     }
 
@@ -24,6 +26,12 @@ class PostIndex extends Controller
     protected function loadData(): void
     {
         // TODO: Load posts from database here.
-        $this->posts = [];
+        try
+        {
+            $this->posts = Model\Post::all($this->db);
+        } catch (\PDOException $e)
+        {
+            $this->posts = [];
+        }
     }
 }
