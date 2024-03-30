@@ -136,3 +136,23 @@ main {
   border-bottom: 1px solid #eee;
   padding: 0.5rem;
 }
+
+.post_title_container {
+  background-color: #303030;
+  color: #eee;
+  padding: 1rem;
+}
+
+.post_title {
+  font-size: xx-large;
+}
+
+.author {
+  font-size: medium;
+}
+
+.post_date {
+  font-size: small;
+  margin-top: -1.5rem;
+  margin-left: 1rem;
+}

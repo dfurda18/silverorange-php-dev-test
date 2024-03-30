@@ -102,7 +102,7 @@ class ImportPost
             $post->body = $json->body ?? '';
             $post->created_at = $json->created_at ?? '';
             $post->modified_at = $json->modified_at ?? '';
-            $post->author = $json->author ?? '';
+            $post->author_id = $json->author ?? '';
             $this->content[$file] = $post;
         } else
         {
