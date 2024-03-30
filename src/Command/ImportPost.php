@@ -6,7 +6,7 @@ require_once 'src/Model/Post.php';
 require_once 'src/Config.php';
 require_once 'src/Database.php';
 
-use \Exception;
+use Exception;
 use silverorange\DevTest\Model\Post;
 use silverorange\DevTest\Config;
 use silverorange\DevTest\Database;
@@ -42,23 +42,18 @@ class ImportPost
      */
     public function import(string $path)
     {
-        if(is_dir($path))
-        {
-            if(substr($path, -1) != '/')
-            {
+        if (is_dir($path)) {
+            if (substr($path, -1) != '/') {
                 $path = $path . '/';
             }
             $files = glob($path . "*.json");
             $this->content = [];
-            foreach($files as $file)
-            {
+            foreach ($files as $file) {
                 $this->addContent($file);
             }
-        } else if(file_exists($path))
-        {
+        } elseif (file_exists($path)) {
             $this->addContent($path);
-        } else
-        {
+        } else {
             $this->addRaw('input', $path);
         }
         $this->save();
@@ -73,28 +68,23 @@ class ImportPost
     {
         $missing_required = [];
         $missing_optional = [];
-        foreach($this->required as $required_field)
-        {
-            if(!isset($json->{$required_field}))
-            {
+        foreach ($this->required as $required_field) {
+            if (!isset($json->{$required_field})) {
                 array_push($missing_required, $required_field);
             }
         }
-        if(sizeof($missing_required) == 0)
-        {
-            foreach($this->optional as $optional_field)
-            {
-                if(!isset($json->{$optional_field}))
-                {
+        if (sizeof($missing_required) == 0) {
+            foreach ($this->optional as $optional_field) {
+                if (!isset($json->{$optional_field})) {
                     array_push($missing_optional, $required_field);
                 }
             }
-            if(sizeof($missing_required) == 0)
-            {
+            if (sizeof($missing_required) == 0) {
                 $this->messages[$file] = "Was successfuly added to the database.";
-            } else
-            {
-                $this->messages[$file] = "Doesn't have " . implode(', ', $missing_optional) . ", although, it was successfuly added to the database.";
+            } else {
+                $this->messages[$file] = "Doesn't have "
+                                        . implode(', ', $missing_optional)
+                                        . ", although, it was successfuly added to the database.";
             }
             $post = new Post();
             $post->id = $json->id;
@@ -104,8 +94,7 @@ class ImportPost
             $post->modified_at = $json->modified_at ?? '';
             $post->author_id = $json->author ?? '';
             $this->content[$file] = $post;
-        } else
-        {
+        } else {
             $this->messages[$file] = "Doesn't have " . implode(', ', $missing_required) . ", it could not be imported.";
         }
     }
@@ -124,22 +113,16 @@ class ImportPost
      */
     public function save()
     {
-        if(sizeof($this->content) > 0)
-        {
+        if (sizeof($this->content) > 0) {
             $config = new Config();
             $db = (new Database($config->dsn))->getConnection();
-            foreach($this->content as $file => $post)
-            {
-                try
-                {
+            foreach ($this->content as $file => $post) {
+                try {
                     $post->save($db);
-                } catch (Exception $e)
-                {
+                } catch (Exception $e) {
                     $this->messages[$file] = $e->getMessage();
                 }
-
             }
         }
     }
-
 }

@@ -26,11 +26,9 @@ class PostIndex extends Controller
     protected function loadData(): void
     {
         // TODO: Load posts from database here.
-        try
-        {
+        try {
             $this->posts = Model\Post::all($this->db);
-        } catch (\PDOException $e)
-        {
+        } catch (\PDOException $e) {
             $this->posts = [];
         }
     }

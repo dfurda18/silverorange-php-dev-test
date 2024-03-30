@@ -4,7 +4,7 @@ namespace silverorange\DevTest\Model;
 
 class Author
 {
-    const FIND_QUERY = "SELECT * FROM authors WHERE id = :id";
+    public const FIND_QUERY = "SELECT * FROM authors WHERE id = :id";
     public string $id;
     public string $full_name;
     public string $created_at;
@@ -22,16 +22,14 @@ class Author
             $author->created_at = $author_details['created_at'] ?? '';
             $author->modified_at = $author_details['modified_at'] ?? '';
             return $author;
-        } catch (\PDOException $e)
-        {
+        } catch (\PDOException $e) {
             throw new \PDOException($e->getMessage());
         }
-
     }
 
     private static function replaceValuesInQuery(string $query, array $values)
     {
-        foreach($values as $key => $value) {
+        foreach ($values as $key => $value) {
             $replacement = is_numeric($value) ? $value : "'{$value}'";
             $query = str_replace($key, $replacement, $query);
         }

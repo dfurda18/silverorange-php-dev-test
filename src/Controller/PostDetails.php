@@ -50,13 +50,10 @@ class PostDetails extends Controller
     protected function loadData(): void
     {
         // TODO: Load post from database here. $this->params[0] is the post id.
-        try
-        {
+        try {
             $this->post = Model\Post::find($this->db, $this->params[0]);
-        } catch (\PDOException $e)
-        {
+        } catch (\PDOException $e) {
             $this->post = null;
         }
-
     }
 }
